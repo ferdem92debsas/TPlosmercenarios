@@ -1,0 +1,14 @@
+package juegoDeEstrategia;
+
+public class Escudo extends ItemDecorator{
+	
+	public Escudo(Unidad u) {
+		super(u);
+		defensa = u.getDefensa() + 40;
+	}
+	
+	@Override
+	public void recibirDaño(Unidad x) {
+		salud -= (x.getDaño() * defensa) / 100;
+	}
+}
