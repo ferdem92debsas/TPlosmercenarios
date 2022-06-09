@@ -1,0 +1,41 @@
+package juegoDeEstrategia;
+
+public class Soldado extends Unidad {
+	protected int energia;
+	
+	public Soldado() {
+		super();
+		salud = 200;
+		daño = 10;
+		energia = 100;
+	}
+	
+	public int getEnergia() {
+		return energia;
+	}
+	
+	@Override
+	public void posionDeAgua() {
+		energia = 100;
+	}
+
+	@Override
+	public void atacar(Unidad x) {
+		if (salud !=0 && energia != 0) {
+			if (posicion == x.getPosicion()) {
+				Soldado u = new Soldado();
+				x.recibirDaño(u);
+				energia -= 10;
+			}
+			else {
+				System.out.println("Unidad fuera de rango");
+			}
+		}
+		if (salud == 0) {
+			System.out.println("Esta unidad cayó en combate");
+		}
+		if (energia == 0) {
+			System.out.println("Esta unidad no tiene energia");
+		}
+	}
+}
