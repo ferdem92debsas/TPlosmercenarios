@@ -1,0 +1,11 @@
+package juegoDeEstrategia;
+
+public class Puñal extends ItemDecorator {
+
+	public Puñal(Unidad u) {
+		super(u);
+		daño = u.getDaño() + 3;
+		defensa = u.getDefensa() - 3;	
+	}	
+	
+}
