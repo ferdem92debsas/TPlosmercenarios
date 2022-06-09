@@ -1,0 +1,51 @@
+package juegoDeEstrategia;
+
+public class Lancero implements Unidad {
+	protected int salud = 150; 
+	protected int posicion = 0;
+	protected int defensa = 0;
+	
+	
+@Override
+public void Atacar(Unidad x) {
+	if (salud !=0) {
+		if (x.getPosicion() >= posicion + 1 && x.getPosicion() <= posicion + 3) {
+			Lancero u = new Lancero();
+			x.recibirDaño(u);
+		}
+	}
+	if (salud == 0) {
+		System.out.println("Esta unidad cayó en combate");
+	}
+}
+	
+@Override
+public void moverUnidad(int x) {
+	posicion += x;
+}
+	
+@Override
+public void recibirDaño(Unidad x) {
+	salud -= x.getDaño();
+}
+	
+@Override
+public int getSalud() {
+	return salud;
+}
+	
+@Override
+public int getPosicion() {
+	return posicion;
+}
+	
+@Override
+public int getDaño() {
+	return 25;
+	}
+
+@Override
+public int getDefensa() { 
+	return defensa;
+}
+}
