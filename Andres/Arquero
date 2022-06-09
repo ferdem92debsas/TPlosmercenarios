@@ -1,0 +1,40 @@
+package juegoDeEstrategia;
+
+public class Arquero extends Unidad {
+	protected int flechas;
+	
+	public Arquero() {
+		super();
+		salud = 50;
+		daño = 5;
+		flechas = 20;
+	}
+
+	@Override
+	public void atacar(Unidad x) {
+		if (salud !=0 && flechas != 0) {
+			if (x.getPosicion() >= posicion + 2 && x.getPosicion() <= posicion + 5) {
+				Arquero u = new Arquero();
+				x.recibirDaño(u);
+				flechas -= 1;
+			}
+			else {
+				System.out.println("Unidad fuera de rango");
+			}
+		}
+		if (salud == 0) {
+			System.out.println("Esta unidad cayó en combate");
+		}
+		if (flechas == 0) {
+			System.out.println("Esta unidad se quedó sin flechas");
+		}
+	}
+	
+	public int getFlechas() {
+		return flechas;
+	}
+	
+	public void paqueteDeFlechas() {
+		flechas += 6;
+	}
+}
