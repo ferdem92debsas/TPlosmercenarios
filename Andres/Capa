@@ -1,0 +1,10 @@
+package juegoDeEstrategia;
+
+public class Capa extends ItemDecorator{
+
+	public Capa(Unidad u) {
+		super(u);
+		energia = u.getEnergia() * 2;
+		daño = u.getDaño() - (u.getDaño() * 10) / 100;
+	}	
+}
