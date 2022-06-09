@@ -1,0 +1,38 @@
+package juegoDeEstrategia;
+
+public class Caballero extends Unidad{
+	protected int contador = 0;
+	
+	public Caballero() {
+		super();
+		salud = 200;
+		daño = 50;
+		;
+	}
+	
+	@Override
+	public void atacar(Unidad x) {
+		if (salud !=0 && contador != 3) {
+			if (x.getPosicion() >= posicion + 1 && x.getPosicion() <= posicion + 2) {
+				Caballero u = new Caballero();
+				x.recibirDaño(u);
+				contador++;
+			}
+			else {
+				System.out.println("Unidad fuera de rango");
+			}
+		}
+		if (salud == 0) {
+			System.out.println("Esta unidad cayó en combate");
+		}
+		if (contador == 3) {
+			System.out.println("El caballo se puso rebelde, calmelo con posión de agua");
+		}
+	}
+	
+	@Override
+	public void posionDeAgua() {
+		contador = 0;
+		System.out.println("El caballo se calmó");
+	}
+}
