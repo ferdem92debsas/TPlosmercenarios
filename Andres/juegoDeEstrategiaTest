@@ -1,0 +1,183 @@
+package juegoDeEstrategia;
+
+import org.junit.jupiter.api.Test;
+
+import static org.junit.Assert.assertEquals;
+
+class juegoDeEstrategiaTest {
+
+@Test
+public void testAtacar() {
+	Unidad soldado = new Soldado();
+	Unidad enemigo = new Soldado();
+	soldado.atacar(enemigo);
+	assertEquals(190, enemigo.getSalud());
+	assertEquals(90, soldado.getEnergia());
+}
+
+@Test
+public void testAtacarSinEnergia() {
+	Unidad soldado = new Soldado();
+	Unidad enemigo = new Soldado();
+	for(int i = 0; i <= 10; i++) {
+		soldado.atacar(enemigo);
+	}
+	assertEquals(0, soldado.getEnergia());
+	assertEquals(100, enemigo.getSalud());
+}
+
+@Test
+public void testAtacarSinSalud() {
+	Unidad soldado = new Soldado();
+	Unidad aliado = new Soldado();
+	Unidad enemigo = new Soldado();
+	for (int j = 0; j < 1; j++) {
+		for (int i = 0; i < 10; i++) {
+			soldado.atacar(enemigo);
+			aliado.atacar(enemigo);
+		}
+	}
+	assertEquals(0, enemigo.getSalud());
+	enemigo.atacar(soldado);
+	assertEquals(200, soldado.getSalud());
+}
+
+@Test
+public void testRecargarEnergiaSoldado() {
+	Unidad soldado = new Soldado();
+	Unidad enemigo = new Soldado();
+	for(int i = 0; i <= 10; i++) {
+		soldado.atacar(enemigo);
+	}
+	assertEquals(0, soldado.getEnergia());
+	soldado.posionDeAgua();
+	assertEquals(100, soldado.getEnergia());
+}
+
+@Test
+public void testAtacarSinFlechas() {
+	Unidad arquero = new Arquero();
+	Unidad enemigo = new Soldado();
+	enemigo.moverUnidad(3);
+	for(int i = 0; i < 22; i++) {
+		arquero.atacar(enemigo);
+	}
+	assertEquals(0, arquero.getFlechas());
+	assertEquals(100, enemigo.getSalud());
+}
+
+@Test
+public void testArqueroRecargaFlechas() {
+	Unidad arquero = new Arquero();
+	Unidad enemigo = new Soldado();
+	enemigo.moverUnidad(4);
+	for(int i = 0; i < 22; i++) {
+		arquero.atacar(enemigo);
+	}
+	assertEquals(0, arquero.getFlechas());
+	arquero.paqueteDeFlechas();
+	arquero.atacar(enemigo);
+	assertEquals(95, enemigo.getSalud());
+}
+
+@Test
+public void testAtaqueDeLancero() {
+	Unidad lancero = new Lancero();
+	Unidad enemigo = new Soldado();
+	enemigo.moverUnidad(2);
+	lancero.atacar(enemigo);
+	assertEquals(175, enemigo.getSalud());
+	enemigo.moverUnidad(1);
+	lancero.atacar(enemigo);
+	assertEquals(150, enemigo.getSalud());
+	enemigo.moverUnidad(1);
+	lancero.atacar(enemigo);
+	assertEquals(150, enemigo.getSalud());
+}
+
+@Test
+public void testAtaqueCaballero() {
+	Unidad caballero = new Caballero();
+	Unidad enemigo = new Soldado();
+	enemigo.moverUnidad(1);
+	for (int i = 0; i < 3; i++) {
+		caballero.atacar(enemigo);
+	}	
+	assertEquals(50, enemigo.getSalud());
+	caballero.atacar(enemigo);
+	assertEquals(50, enemigo.getSalud());
+	caballero.posionDeAgua();
+	caballero.atacar(enemigo);
+	assertEquals(0, enemigo.getSalud());
+	}
+
+@Test
+public void testAplicarEscudo() {
+	Unidad soldado = new Soldado();
+	soldado = new Escudo(soldado);
+	Unidad enemigo = new Soldado();
+	enemigo.atacar(soldado);
+	assertEquals(196, soldado.getSalud());
+	assertEquals(40, soldado.getDefensa());
+	soldado = new Escudo(soldado);
+	assertEquals(80, soldado.getDefensa());
+	enemigo.atacar(soldado);
+	assertEquals(188, soldado.getSalud());
+}
+
+@Test
+public void testAplicarPuñal() {
+	Unidad soldado = new Soldado();
+	soldado = new Puñal(soldado);
+	Unidad enemigo = new Soldado();
+	assertEquals(13, soldado.getDaño());
+	soldado.atacar(enemigo); 
+	assertEquals(187, enemigo.getSalud()); 
+	assertEquals(-3, soldado.getDefensa());
+	soldado = new Escudo(soldado);
+	assertEquals(37, soldado.getDefensa());
+	enemigo = new Puñal(enemigo);
+	enemigo = new Puñal(enemigo);
+	enemigo.atacar(soldado);
+	assertEquals(184, soldado.getSalud()); 
+}
+
+@Test
+public void testAplicarCapa() {
+	Unidad soldado = new Soldado();
+	Unidad enemigo = new Arquero();
+	soldado = new Capa(soldado);
+	assertEquals(200, soldado.getEnergia());
+	assertEquals(9, soldado.getDaño());
+	soldado.atacar(enemigo);
+	assertEquals(41, enemigo.getSalud());
+	assertEquals(190, soldado.getEnergia()); // La energia no baja cuando se aplica el decorator.
+}
+
+@Test
+public void testAtacarConItemAEnemigoLejos() {
+	Unidad soldado = new Soldado();
+	soldado = new Escudo(soldado);
+	Unidad enemigo = new Soldado();
+	soldado.moverUnidad(2);
+	enemigo.atacar(soldado);
+	assertEquals(200, soldado.getSalud());
+	assertEquals(40, soldado.getDefensa());
+	soldado.moverUnidad(-2);
+	enemigo.atacar(soldado);
+	assertEquals(196, soldado.getSalud());
+	Unidad arquero = new Arquero();
+	arquero.atacar(enemigo);
+	assertEquals(200, enemigo.getSalud());
+	enemigo.moverUnidad(3);
+	arquero.atacar(enemigo);
+	assertEquals(195, enemigo.getSalud());
+	arquero = new Puñal(arquero);
+	arquero.atacar(enemigo);
+	assertEquals(187, enemigo.getSalud());
+	enemigo.moverUnidad(3);
+	arquero.atacar(enemigo);
+	assertEquals(187, enemigo.getSalud()); // Se pierden las condiciones para atacar al implementar el decorator.
+}
+
+}
