@@ -1,0 +1,61 @@
+package juegoDeEstrategia;
+
+public abstract class Unidad {
+	protected int posicion;
+	protected int salud;
+	protected int daño;
+	protected int energia;
+	protected int defensa;
+	protected int flechas;
+	
+	public Unidad(int posicion, int salud, int daño) {
+		this.posicion = posicion;
+		this.salud = salud;
+		this.daño = daño;
+	}
+	
+	public Unidad() {
+	}
+
+	public abstract void atacar(Unidad x);
+	
+	public void recibirDaño(Unidad x) {
+		salud -= x.getDaño();
+	}
+
+	public void moverUnidad(int x) {
+		posicion += x;
+	}
+	
+	public int getSalud() {
+		return salud;
+	}
+	
+	public int getPosicion() {
+		return posicion;
+	}
+	
+	public int getDaño() {
+		return daño;
+	}
+	
+	public void posionDeAgua() {
+		System.out.println("No tiene efecto");
+	}
+	
+	public int getEnergia() {
+		return energia;
+	}
+	
+	public int getDefensa(){
+		return defensa;
+	}
+	
+	public int getFlechas() {
+		return flechas;
+	}
+	
+	public void paqueteDeFlechas() {
+		flechas += 6;
+	}
+}
