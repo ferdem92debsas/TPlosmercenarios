@@ -1,0 +1,27 @@
+package juegoDeEstrategia;
+
+public class Lancero extends Unidad{
+
+	public Lancero() {
+		super();
+		salud = 150;
+		daño = 25;
+	}
+
+	@Override
+	public void atacar(Unidad x) {
+		if (salud !=0) {
+			if (x.getPosicion() >= posicion + 1 && x.getPosicion() <= posicion + 3) {
+				Lancero u = new Lancero();
+				x.recibirDaño(u);
+			}
+			else {
+				System.out.println("Unidad fuera de rango");
+			}
+		}
+		if (salud == 0) {
+			System.out.println("Esta unidad cayó en combate");
+		}
+	}
+	
+}
