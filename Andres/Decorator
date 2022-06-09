@@ -1,0 +1,16 @@
+package juegoDeEstrategia;
+
+public class ItemDecorator extends Unidad {
+
+	private Unidad unidad;
+		
+		public ItemDecorator(Unidad u) {
+			super(u.getPosicion(), u.getSalud(), u.getDaño());
+			this.unidad = u;
+		}
+
+		@Override
+		public void atacar(Unidad x) {
+			x.salud -= daño;
+		}
+}
